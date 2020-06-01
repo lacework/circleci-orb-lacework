@@ -1,0 +1,24 @@
+description: >
+  Run an on-demand vulnerability scan.
+executor: default
+parameters:
+  registry:
+    description: Container registry where the container image has been published
+    type: string
+  repository:
+    description: Repository name that contains the container image
+    type: string
+  tag:
+    description: The image tag to scan
+    type: string
+    default: latest
+  digest:
+    description: An image digest to scan (format sha256:1ee...1d3b)
+    type: string
+    default: ""
+steps:
+  - vuln-scan-run:
+      registry: << parameters.registry >>
+      repository: << parameters.repository >>
+      digest:  << parameters.digest >>
+      tag: << parameters.tag >>
