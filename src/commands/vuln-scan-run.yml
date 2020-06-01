@@ -1,0 +1,39 @@
+description: >
+  Run an on-demand vulnerability scan.
+parameters:
+  registry:
+    description: Container registry where the container image has been published
+    type: string
+  repository:
+    description: Repository name that contains the container image
+    type: string
+  tag:
+    description: The image tag to scan
+    type: string
+    default: latest
+  digest:
+    description: An image digest to scan (format sha256:1ee...1d3b)
+    type: string
+    default: ""
+  account:
+    description: Account subdomain of URL (i.e. ACCOUNT.lacework.net)
+    type: string
+    default: $LW_ACCOUNT
+  api-key:
+    description: The API Access Key
+    type: string
+    default: $LW_API_KEY
+  api-secret:
+    description: The API Access Secret
+    type: string
+    default: $LW_API_SECRET
+steps:
+  - run:
+      command: |
+        REGISTRY=<<parameters.registry>>
+        REPOSITORY=<<parameters.repository>>
+        TAG_OR_DIGEST=<<parameters.tag>>
+        if [[ "<<parameters.digest>>" != "" ]]; then
+          TAG_OR_DIGEST=<<parameters.digest>>
+        fi
+        lacework vulnerability scan run $REGISTRY $REPOSITORY $TAG_OR_DIGEST --poll --noninteractive
