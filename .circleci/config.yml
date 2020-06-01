@@ -1,7 +1,5 @@
 version: 2.1
 
-# add your orb below, to be used in integration tests (note: a @dev:alpha
-# release must exist.);
 orbs:
   lacework: lacework/lacework@<<pipeline.parameters.dev-orb-version>>
   orb-tools: circleci/orb-tools@9.0
@@ -18,17 +16,25 @@ parameters:
     default: "dev:alpha"
 
 jobs:
-  # This job is an example of an integration testing job.
-  # This job should execute a command from your orb and verify
-  # the output is as expected, otherwise the job should fail.
-  #
-  # Rename this job and add more as needed.
-  #
-  integration-test-1:
+  integration-test-install-cli:
     executor: orb-tools/ubuntu
     steps:
       - checkout
-    # - your-orb/your-orb-command
+      - lacework/install-cli
+      - run:
+          command: |
+            if ! lacework version; then
+              echo "The lacework-cli was not found"
+              exit 1
+            fi
+
+  integration-test-vuln-scan:
+    executor: lacework/default
+    steps:
+      - checkout
+      - lacework/vuln-scan-run:
+          registry: "index.docker.io"
+          repository: "techallylw/lacework-cli"
 
 workflows:
   # This `lint-pack_validate_publish-dev` workflow will run on any commit.
@@ -67,15 +73,11 @@ workflows:
   integration-tests_prod-release:
     when: << pipeline.parameters.run-integration-tests >>
     jobs:
-      # your integration test jobs go here: essentially, run all your orb's
-      # jobs and commands to ensure they behave as expected. or, run other
-      # integration tests of your choosing
+      - integration-test-install-cli
+      - integration-test-vuln-scan
 
-      # an example job
-      - integration-test-1
-
-      # publish a semver version of the orb. relies on
-      # the commit subject containing the text "[semver:patch|minor|major|skip]"
+      # publish a semver version of the orb. relies on the commit
+      # subject containing the text "[semver:patch|minor|major|skip]"
       # as that will determine whether a patch, minor or major
       # version will be published or if publishing should
       # be skipped.
@@ -88,7 +90,8 @@ workflows:
           publish-version-tag: true
           ssh-fingerprints: x
           requires:
-            - integration-test-1
+            - integration-test-install-cli
+            - integration-test-vuln-scan
           filters:
             branches:
               only: master
