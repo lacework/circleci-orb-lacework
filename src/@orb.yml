@@ -4,7 +4,7 @@ description: >
   Use the Lacework Orb to add security into your CI/CD pipeline.
   You can run vulnerability scans and other operations.
 
-# This information will be displayed in the orb registry and is not mandatory.
+# This information will be displayed in the orb registry and is not mandatory
 display:
   home_url: "https://www.lacework.com/"
   source_url: "https://www.github.com/lacework/circleci-orb-lacework"
