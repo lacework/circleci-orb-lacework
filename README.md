@@ -7,7 +7,7 @@ Use the Lacework Orb to add security into your CI/CD pipeline. You can run vulne
 
 ## Usage
 
-Example use-cases are provided on the orb [registry page](https://circleci.com/orbs/registry/orb/lacework/lacework#usage-examples). Source for these examples can be found within the `src/examples` directory.
+Example use-cases are provided on the orb [registry page](https://circleci.com/orbs/registry/orb/lacework/lacework#usage-examples). Source for these examples can be found within the [src/examples](src/examples) directory.
 
 ## Resources
 
