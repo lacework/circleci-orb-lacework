@@ -1,0 +1,10 @@
+description: >
+  This example shows how to install the lacework-cli
+usage:
+  version: 2.1
+  orbs:
+    lacework: lacework/lacework@1.2.3
+  workflows:
+    prepare_my_app:
+      jobs:
+        - lacework/install-cli

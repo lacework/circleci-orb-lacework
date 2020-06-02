@@ -1,0 +1,12 @@
+description: >
+  This example shows how to run a container vulnerability scan
+usage:
+  version: 2.1
+  orbs:
+    lacework: lacework/lacework@1.2.3
+  workflows:
+    scan_my_container:
+      jobs:
+        - lacework/vuln-scan:
+            registry: "index.docker.io"
+            repository: "techallylw/lacework-cli"
