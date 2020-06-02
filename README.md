@@ -1,6 +1,6 @@
 <img src="https://techally-content.s3-us-west-1.amazonaws.com/public-content/lacework_logo_full.png" width="600">
 
-# Lacework Orb
+# Lacework Orb for CircleCI
 [![CircleCI Build Status](https://circleci.com/gh/lacework/circleci-orb-lacework.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/lacework/circleci-orb-lacework) [![CircleCI Orb Version](https://img.shields.io/badge/endpoint.svg?url=https://badges.circleci.io/orb/lacework/lacework)](https://circleci.com/orbs/registry/orb/lacework/lacework) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
 
 Use the Lacework Orb to add security into your CI/CD pipeline. You can run vulnerability scans and other operations.
