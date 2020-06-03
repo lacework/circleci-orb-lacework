@@ -3,7 +3,7 @@ description: >
 usage:
   version: 2.1
   orbs:
-    lacework: lacework/lacework@1.2.3
+    lacework: lacework/lacework@x.y
   workflows:
     scan_my_container:
       jobs:
