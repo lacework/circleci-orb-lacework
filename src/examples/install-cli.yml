@@ -1,10 +1,16 @@
 description: >
-  This example shows how to install the lacework-cli
+  This example shows how to install the lacework-cli.
+
+  For more information about the Lacework CLI visit:
+    - https://github.com/lacework/go-sdk/wiki/CLI-Documentation
 usage:
   version: 2.1
   orbs:
     lacework: lacework/lacework@1.2.3
-  workflows:
-    prepare_my_app:
-      jobs:
+  jobs:
+    list-events-test:
+      executor: orb-tools/ubuntu
+      steps:
+        - checkout
         - lacework/install-cli
+        - run: lacework events list
