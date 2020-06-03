@@ -17,23 +17,27 @@ parameters:
     default: ""
   account:
     description: Account subdomain of URL (i.e. ACCOUNT.lacework.net)
-    type: string
-    default: $LW_ACCOUNT
+    type: env_var_name
+    default: LW_ACCOUNT
   api-key:
     description: The API Access Key
-    type: string
-    default: $LW_API_KEY
+    type: env_var_name
+    default: LW_API_KEY
   api-secret:
     description: The API Access Secret
-    type: string
-    default: $LW_API_SECRET
+    type: env_var_name
+    default: LW_API_SECRET
 steps:
   - run:
       command: |
-        REGISTRY=<<parameters.registry>>
-        REPOSITORY=<<parameters.repository>>
         TAG_OR_DIGEST=<<parameters.tag>>
         if [[ "<<parameters.digest>>" != "" ]]; then
+          # If an image digest is specified, use it instead of the tag
           TAG_OR_DIGEST=<<parameters.digest>>
         fi
-        lacework vulnerability scan run $REGISTRY $REPOSITORY $TAG_OR_DIGEST --poll --noninteractive
+
+        lacework vulnerability scan run <<parameters.registry>> <<parameters.repository>> $TAG_OR_DIGEST \
+            --account ${<< parameters.account >>} \
+            --api_key ${<< parameters.api-key >>} \
+            --api_secret ${<< parameters.api-secret >>} \
+            --poll --noninteractive
