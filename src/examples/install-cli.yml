@@ -6,10 +6,11 @@ description: >
 usage:
   version: 2.1
   orbs:
-    lacework: lacework/lacework@1.2.3
+    lacework: lacework/lacework@x.y
   jobs:
     list-events-test:
-      executor: orb-tools/ubuntu
+      docker:
+        - image: cimg/base:stable
       steps:
         - checkout
         - lacework/install-cli
