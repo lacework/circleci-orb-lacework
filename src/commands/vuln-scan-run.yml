@@ -36,7 +36,7 @@ steps:
           TAG_OR_DIGEST=<<parameters.digest>>
         fi
 
-        lacework vulnerability scan run <<parameters.registry>> <<parameters.repository>> $TAG_OR_DIGEST \
+        lacework vulnerability container scan <<parameters.registry>> <<parameters.repository>> $TAG_OR_DIGEST \
             --account ${<< parameters.account >>} \
             --api_key ${<< parameters.api-key >>} \
             --api_secret ${<< parameters.api-secret >>} \
