@@ -17,7 +17,7 @@ parameters:
     type: string
     default: ""
 steps:
-  - vuln-scan-run:
+  - ctr-vuln-scan:
       registry: << parameters.registry >>
       repository: << parameters.repository >>
       digest:  << parameters.digest >>
