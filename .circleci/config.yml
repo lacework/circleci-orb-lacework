@@ -91,7 +91,7 @@ workflows:
     jobs:
       - integration-test-install-cli
       - integration-test-ctr-vuln-scan
-      #- integration-test-scan-pkg-manifest
+      - integration-test-scan-pkg-manifest
 
       # publish a semver version of the orb. relies on the commit
       # subject containing the text "[semver:patch|minor|major|skip]"
@@ -109,7 +109,7 @@ workflows:
           requires:
             - integration-test-install-cli
             - integration-test-ctr-vuln-scan
-            #- integration-test-scan-pkg-manifest
+            - integration-test-scan-pkg-manifest
           filters:
             branches:
               only: master
