@@ -1,6 +1,6 @@
 description: >
   Run an on-demand host vulnerability assessment of your software packages to
-  determine if the packages contain any common vulnerabilities and exposures. 
+  determine if the packages contain any common vulnerabilities and exposures.
 parameters:
   manifest:
     description: Package manifest (JSON) to be scanned
@@ -23,4 +23,4 @@ steps:
         lacework vulnerability host scan-pkg-manifest <<parameters.manifest>> \
             --account ${<< parameters.account >>} \
             --api_key ${<< parameters.api-key >>} \
-            --api_secret ${<< parameters.api-secret >>} \
+            --api_secret ${<< parameters.api-secret >>}
