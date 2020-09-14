@@ -32,7 +32,7 @@ jobs:
     executor: lacework/default
     steps:
       - checkout
-      - lacework/vuln-scan-run:
+      - lacework/ctr-vuln-scan:
           registry: "index.docker.io"
           repository: "lacework/lacework-cli"
 
