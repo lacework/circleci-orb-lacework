@@ -1,0 +1,10 @@
+description: >
+  Run an on-demand vulnerability scan from a package manifest.
+executor: default
+parameters:
+  manifest:
+    description: Package manifest (JSON) to be scanned
+    type: string
+steps:
+  - scan-pkg-manifest:
+      manifest: << parameters.manifest >>

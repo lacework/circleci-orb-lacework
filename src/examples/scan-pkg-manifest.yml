@@ -1,0 +1,20 @@
+description: >
+  This example shows how to run a vulnerability scan of a manifest.json file
+usage:
+  version: 2.1
+  orbs:
+    lacework: lacework/lacework@x.y
+  workflows:
+    scan_my_container:
+      jobs:
+        - lacework/scan-pkg-manifest:
+            manifest: '{
+            "os_pkg_info_list": [
+                {
+                    "os":"Ubuntu",
+                    "os_ver":"18.04",
+                    "pkg": "openssl",
+                    "pkg_ver": "1.1.1-1ubuntu2.1~18.04.5"
+                }
+              ]
+            }'

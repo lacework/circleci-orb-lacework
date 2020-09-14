@@ -1,0 +1,26 @@
+description: >
+  Run an on-demand host vulnerability assessment of your software packages to
+  determine if the packages contain any common vulnerabilities and exposures.
+parameters:
+  manifest:
+    description: Package manifest (JSON) to be scanned
+    type: string
+  account:
+    description: Account subdomain of URL (i.e. ACCOUNT.lacework.net)
+    type: env_var_name
+    default: LW_ACCOUNT
+  api-key:
+    description: The API Access Key
+    type: env_var_name
+    default: LW_API_KEY
+  api-secret:
+    description: The API Access Secret
+    type: env_var_name
+    default: LW_API_SECRET
+steps:
+  - run:
+      command: |
+        lacework vulnerability host scan-pkg-manifest '<<parameters.manifest>>' \
+            --account ${<< parameters.account >>} \
+            --api_key ${<< parameters.api-key >>} \
+            --api_secret ${<< parameters.api-secret >>}

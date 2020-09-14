@@ -7,6 +7,6 @@ usage:
   workflows:
     scan_my_container:
       jobs:
-        - lacework/vuln-scan:
+        - lacework/ctr-vuln-scan:
             registry: "index.docker.io"
-            repository: "techallylw/lacework-cli"
+            repository: "lacework/lacework-cli"

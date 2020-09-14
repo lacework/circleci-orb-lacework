@@ -28,13 +28,29 @@ jobs:
               exit 1
             fi
 
-  integration-test-vuln-scan:
+  integration-test-ctr-vuln-scan:
     executor: lacework/default
     steps:
       - checkout
-      - lacework/vuln-scan-run:
+      - lacework/ctr-vuln-scan:
           registry: "index.docker.io"
-          repository: "techallylw/lacework-cli"
+          repository: "lacework/lacework-cli"
+
+  integration-test-scan-pkg-manifest:
+    executor: lacework/default
+    steps:
+      - checkout
+      - lacework/scan-pkg-manifest:
+          manifest: '{
+            "os_pkg_info_list": [
+                {
+                    "os":"Ubuntu",
+                    "os_ver":"18.04",
+                    "pkg": "openssl",
+                    "pkg_ver": "1.1.1-1ubuntu2.1~18.04.5"
+                }
+              ]
+            }'
 
 workflows:
   # This `lint-pack_validate_publish-dev` workflow will run on any commit.
@@ -74,7 +90,8 @@ workflows:
     when: << pipeline.parameters.run-integration-tests >>
     jobs:
       - integration-test-install-cli
-      - integration-test-vuln-scan
+      - integration-test-ctr-vuln-scan
+      - integration-test-scan-pkg-manifest
 
       # publish a semver version of the orb. relies on the commit
       # subject containing the text "[semver:patch|minor|major|skip]"
@@ -91,7 +108,8 @@ workflows:
           ssh-fingerprints: 17:62:8a:b9:66:53:0f:8a:47:15:24:75:95:c8:14:54
           requires:
             - integration-test-install-cli
-            - integration-test-vuln-scan
+            - integration-test-ctr-vuln-scan
+            - integration-test-scan-pkg-manifest
           filters:
             branches:
               only: master
