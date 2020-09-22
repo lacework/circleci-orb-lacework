@@ -41,7 +41,16 @@ jobs:
     steps:
       - checkout
       - lacework/scan-pkg-manifest:
-          local-host: yes
+          manifest: '{
+            "os_pkg_info_list": [
+                {
+                    "os":"Ubuntu",
+                    "os_ver":"18.04",
+                    "pkg": "openssl",
+                    "pkg_ver": "1.1.1-1ubuntu2.1~18.04.5"
+                }
+              ]
+            }'
 
 workflows:
   # This `lint-pack_validate_publish-dev` workflow will run on any commit.
