@@ -5,6 +5,11 @@ parameters:
   manifest:
     description: Package manifest (JSON) to be scanned
     type: string
+    default: ''
+  local-host:
+    description: Automatically generate the package manifest from the local host, if set overrides manifest setting
+    type: boolean
+    default: false
   account:
     description: Account subdomain of URL (i.e. ACCOUNT.lacework.net)
     type: env_var_name
@@ -21,6 +26,7 @@ steps:
   - run:
       command: |
         lacework vulnerability host scan-pkg-manifest '<<parameters.manifest>>' \
+             <<# parameters.local-host >> --local \ <</ parameters.local-host >>
             --account ${<< parameters.account >>} \
             --api_key ${<< parameters.api-key >>} \
             --api_secret ${<< parameters.api-secret >>}
