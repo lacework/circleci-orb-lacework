@@ -25,8 +25,7 @@ parameters:
 steps:
   - run:
       command: |
-        lacework vulnerability host scan-pkg-manifest '<<parameters.manifest>>' \
-             <<# parameters.local-host >> --local \ <</ parameters.local-host >>
+        lacework vulnerability host scan-pkg-manifest '<<parameters.manifest>>' <<# parameters.local-host >> --local <</ parameters.local-host >> \
             --account ${<< parameters.account >>} \
             --api_key ${<< parameters.api-key >>} \
             --api_secret ${<< parameters.api-secret >>}
