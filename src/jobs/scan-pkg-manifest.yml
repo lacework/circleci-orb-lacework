@@ -5,6 +5,11 @@ parameters:
   manifest:
     description: Package manifest (JSON) to be scanned
     type: string
+  local-host:
+    description: Automatically generate the package manifest from the local host, if set overrides manifest setting
+    type: boolean
+    default: false
 steps:
   - scan-pkg-manifest:
       manifest: << parameters.manifest >>
+      local-host: << parameters.local-host >>

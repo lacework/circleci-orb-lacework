@@ -1,5 +1,5 @@
 description: >
-  This example shows how to run a vulnerability scan of a manifest.json file
+  This example shows how to run a vulnerability scan of a package-manifest
 usage:
   version: 2.1
   orbs:
