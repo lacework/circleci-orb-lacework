@@ -35,6 +35,15 @@ jobs:
       - lacework/ctr-vuln-scan:
           registry: "index.docker.io"
           repository: "lacework/lacework-cli"
+          details: on
+          html: yes
+      - run:
+          command: |
+            mkdir  circleci-artifacts/
+            mv lacework-lacework-cli* circleci-artifacts/
+
+      - store_artifacts:
+          path: circleci-artifacts
 
   integration-test-scan-pkg-manifest:
     executor: lacework/default
