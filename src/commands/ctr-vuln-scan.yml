@@ -11,6 +11,14 @@ parameters:
     description: The image tag to scan
     type: string
     default: latest
+  details:
+    description: Show more details of the vulnerability scan results
+    type: boolean
+    default: false
+  html:
+    description: Generate a vulnerability assessment in HTML format
+    type: boolean
+    default: false
   digest:
     description: An image digest to scan (format sha256:1ee...1d3b)
     type: string
@@ -40,4 +48,5 @@ steps:
             --account ${<< parameters.account >>} \
             --api_key ${<< parameters.api-key >>} \
             --api_secret ${<< parameters.api-secret >>} \
-            --poll --noninteractive
+            --poll <<# parameters.html >> --html <</ parameters.html >> \
+            --noninteractive <<# parameters.details >> --details <</ parameters.details >>
