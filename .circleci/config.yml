@@ -39,11 +39,14 @@ jobs:
           html: yes
       - run:
           command: |
-            mkdir  circleci-artifacts/
-            mv lacework-lacework-cli* circleci-artifacts/
+            mkdir  lacework-artifacts/
+
+            if [ `ls -1 lacework-lacework-cli* 2>/dev/null | wc -l ` -gt 0 ]; then
+                mv lacework-lacework-cli* lacework-artifacts/
+            fi
 
       - store_artifacts:
-          path: circleci-artifacts
+          path: lacework-artifacts
 
   integration-test-scan-pkg-manifest:
     executor: lacework/default
