@@ -35,6 +35,7 @@ jobs:
       - lacework/ctr-vuln-scan:
           registry: "index.docker.io"
           repository: "lacework/lacework-cli"
+          tag: "debian-10"
           details: on
           html: yes
       - run:
@@ -106,6 +107,11 @@ workflows:
       - integration-test-install-cli
       - integration-test-ctr-vuln-scan
       - integration-test-scan-pkg-manifest
+      - lacework/ctr-vuln-scan:
+          registry: "index.docker.io"
+          repository: "lacework/lacework-cli"
+          tag: "ubuntu-1804"
+          html: true
 
       # publish a semver version of the orb. relies on the commit
       # subject containing the text "[semver:patch|minor|major|skip]"
