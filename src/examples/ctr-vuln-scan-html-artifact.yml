@@ -1,0 +1,15 @@
+description: >
+  This example runs a container vulnerability scan using the ctr-vuln-scan job,
+  it will generate the container vulnerability assessment in HTML format and
+  store the artifact automatically.
+usage:
+  version: 2.1
+  orbs:
+    lacework: lacework/lacework@x.y
+  workflows:
+    scan_container_and_generate_html_artifact:
+      jobs:
+        - lacework/ctr-vuln-scan:
+            registry: "index.docker.io"
+            repository: "lacework/lacework-cli"
+            html: true

@@ -16,9 +16,33 @@ parameters:
     description: An image digest to scan (format sha256:1ee...1d3b)
     type: string
     default: ""
+  html:
+    description: Generate a vulnerability assessment in HTML format
+    type: boolean
+    default: false
+  details:
+    description: Show more details of the vulnerability scan results
+    type: boolean
+    default: false
 steps:
   - ctr-vuln-scan:
       registry: << parameters.registry >>
       repository: << parameters.repository >>
       digest: << parameters.digest >>
       tag: << parameters.tag >>
+      html: << parameters.html >>
+      details: << parameters.details >>
+  - when:
+      condition: <<parameters.html>>
+      steps:
+        - run:
+            command: |
+              _repo="<<parameters.repository>>"
+              _repo_format="${_repo//\//-}"
+
+              mkdir lacework-artifacts/
+              if [ `ls -1 "${_repo//\//-}"* 2>/dev/null | wc -l ` -gt 0 ]; then
+                  mv "${_repo//\//-}"* lacework-artifacts/
+              fi
+        - store_artifacts:
+            path: lacework-artifacts
