@@ -35,6 +35,9 @@ parameters:
     description: The API Access Secret
     type: env_var_name
     default: LW_API_SECRET
+  no_output_timeout:
+    type: string
+    default: 10m
 steps:
   - run:
       command: |
