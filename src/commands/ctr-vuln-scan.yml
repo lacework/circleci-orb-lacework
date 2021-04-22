@@ -37,7 +37,7 @@ parameters:
     default: LW_API_SECRET
   no_output_timeout:
     type: string
-    default: 10m
+    default: 20m
 steps:
   - run:
       command: |
