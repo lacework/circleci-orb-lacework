@@ -113,7 +113,6 @@ workflows:
           repository: "lacework/lacework-cli"
           tag: "ubuntu-1804"
           html: true
-          no_output_timeout: 30m
 
       # publish a semver version of the orb. relies on the commit
       # subject containing the text "[semver:patch|minor|major|skip]"
