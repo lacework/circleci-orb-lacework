@@ -36,6 +36,7 @@ parameters:
     type: env_var_name
     default: LW_API_SECRET
   no_output_timeout:
+    description: Elapsed time the command can run without output
     type: string
     default: 20m
 steps:
