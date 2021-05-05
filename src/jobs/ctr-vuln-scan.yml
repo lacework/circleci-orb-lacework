@@ -24,6 +24,10 @@ parameters:
     description: Show more details of the vulnerability scan results
     type: boolean
     default: false
+  no_output_timeout:
+    description: Elapsed time the command can run without output
+    type: string
+    default: 20m
 steps:
   - ctr-vuln-scan:
       registry: << parameters.registry >>
@@ -32,6 +36,7 @@ steps:
       tag: << parameters.tag >>
       html: << parameters.html >>
       details: << parameters.details >>
+      no_output_timeout: << parameters.no_output_timeout >>
   - when:
       condition: <<parameters.html>>
       steps:
