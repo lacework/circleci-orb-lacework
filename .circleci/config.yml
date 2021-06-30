@@ -38,7 +38,7 @@ jobs:
           tag: "debian-10"
           details: on
           html: yes
-          no_output_timeout: 30m
+          no_output_timeout: 50m
       - run:
           command: |
             mkdir  lacework-artifacts/
@@ -113,7 +113,7 @@ workflows:
           repository: "lacework/lacework-cli"
           tag: "latest"
           html: true
-          no_output_timeout: 30m
+          no_output_timeout: 50m
 
       # Test scan-pkg-manifest
       - lacework/scan-pkg-manifest:

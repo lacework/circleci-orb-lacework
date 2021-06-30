@@ -9,3 +9,4 @@ parameters:
     type: string
 docker:
   - image: 'lacework/lacework-cli:<<parameters.tag>>'
+resource_class: small

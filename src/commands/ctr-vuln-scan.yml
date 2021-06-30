@@ -43,6 +43,10 @@ parameters:
     description: Fail current job if assessed container has fixable vulnerabilities
     type: boolean
     default: false
+  fixable:
+    description: Show only fixable vulnerabilities
+    type: boolean
+    default: false
 
 steps:
   - run:
