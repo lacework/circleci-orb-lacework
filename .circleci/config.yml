@@ -39,6 +39,7 @@ jobs:
           details: on
           html: yes
           no_output_timeout: 90m
+          fail_on_fixable: true
       - run:
           command: |
             mkdir  lacework-artifacts/
