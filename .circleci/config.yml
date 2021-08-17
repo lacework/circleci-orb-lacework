@@ -63,7 +63,6 @@ jobs:
           # fail_on_severity: "low"
 
   integration-test-ctr-vuln-scan-show-only-fixable:
-    working_directory: ~/project
     executor: lacework/default
     steps:
       - checkout
@@ -73,8 +72,16 @@ jobs:
           tag: 7f7305bea884b63578c28d4513a916e2247ec152
           fixable: true
           html: true
+      - run:
+          command: |
+            mkdir  lacework-artifacts/
+
+            if [ `ls -1 lacework-lacework-cli* 2>/dev/null | wc -l` -gt 0 ]; then
+                mv lacework-lacework-cli* lacework-artifacts/
+            fi
+
       - store_artifacts:
-          path: ~/project/*html
+          path: lacework-artifacts
 
   integration-test-scan-pkg-manifest:
     executor: lacework/default
@@ -141,7 +148,7 @@ workflows:
           repository: "lacework/lacework-cli"
           tag: "latest"
           html: true
-          no_output_timeout: 90m
+          no_output_timeout: 20m
 
       # Test scan-pkg-manifest
       - lacework/scan-pkg-manifest:
