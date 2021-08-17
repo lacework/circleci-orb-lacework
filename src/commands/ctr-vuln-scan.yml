@@ -66,4 +66,5 @@ steps:
             --api_secret ${<< parameters.api-secret >>} \
             --poll <<# parameters.html >> --html <</ parameters.html >> \
             --noninteractive <<# parameters.details >> --details <</ parameters.details >> \
-            <<# parameters.fail_on_severity >> --fail_on_severity << parameters.fail_on_severity >> <</ parameters.fail_on_severity >>
+            <<# parameters.fail_on_severity >> --fail_on_severity << parameters.fail_on_severity >> <</ parameters.fail_on_severity >> \
+            <<# parameters.fail_on_fixable >> --fail_on_fixable <</ parameters.fail_on_fixable >>
