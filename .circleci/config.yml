@@ -63,6 +63,7 @@ jobs:
           # fail_on_severity: "low"
 
   integration-test-ctr-vuln-scan-show-only-fixable:
+    working_directory: ~/project
     executor: lacework/default
     steps:
       - checkout
@@ -71,6 +72,9 @@ jobs:
           repository: chriscircleci/vuln_django
           tag: 7f7305bea884b63578c28d4513a916e2247ec152
           fixable: true
+          html: true
+      - store_artifacts:
+          path: ~/project/*html
 
   integration-test-scan-pkg-manifest:
     executor: lacework/default
