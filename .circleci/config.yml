@@ -131,6 +131,7 @@ workflows:
       - integration-test-ctr-vuln-scan
       - integration-test-scan-pkg-manifest
       - integration-test-ctr-vuln-scan-fail_on_fixable
+      - integration-test-ctr-vuln-scan-show-only-fixable
       - lacework/ctr-vuln-scan:
           registry: "index.docker.io"
           repository: "lacework/lacework-cli"
