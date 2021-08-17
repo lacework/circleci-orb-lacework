@@ -59,7 +59,7 @@ jobs:
           registry: "index.docker.io"
           repository: chriscircleci/vuln_django
           tag: 7f7305bea884b63578c28d4513a916e2247ec152
-          fail_on_fixable: false
+          fail_on_fixable: true
           # fail_on_severity: "low"
 
   integration-test-scan-pkg-manifest:
