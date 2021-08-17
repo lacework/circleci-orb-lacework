@@ -66,10 +66,11 @@ steps:
             --api_key ${<< parameters.api-key >>} \
             --api_secret ${<< parameters.api-secret >>} \
             --poll \
-            --noninteractive \ <<# parameters.fail_on_severity >> --fail_on_severity ${<< parameters.fail_on_severity >>} <</ parameters.fail_on_severity >>
+            --noninteractive \
             <<# parameters.html >> --html <</ parameters.html >> \
             <<# parameters.details >> --details <</ parameters.details >> \
             # Adding these
             <<# parameters.fail_on_fixable >> --fail_on_fixable <</ parameters.fail_on_fixable >> \
+            --fail_on_severity ${<< parameters.fail_on_severity >>}
       no_output_timeout: << parameters.no_output_timeout >>
 
