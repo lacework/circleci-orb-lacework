@@ -61,8 +61,10 @@ steps:
             --account ${<< parameters.account >>} \
             --api_key ${<< parameters.api-key >>} \
             --api_secret ${<< parameters.api-secret >>} \
-            --poll <<# parameters.html >> --html <</ parameters.html >> \
-            --noninteractive <<# parameters.details >> --details <</ parameters.details >> \
+            --poll \
+            --noninteractive \
+            <<# parameters.html >> --html <</ parameters.html >> \
+            <<# parameters.details >> --details <</ parameters.details >> \
             <<# parameters.fail_on_fixable >> --fail_on_fixable <</ parameters.fail_on_fixable >>
       no_output_timeout: << parameters.no_output_timeout >>
 
