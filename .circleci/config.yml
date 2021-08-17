@@ -59,8 +59,18 @@ jobs:
           registry: "index.docker.io"
           repository: chriscircleci/vuln_django
           tag: 7f7305bea884b63578c28d4513a916e2247ec152
-          fail_on_fixable: true
+          fail_on_fixable: false
           # fail_on_severity: "low"
+
+  integration-test-ctr-vuln-scan-show-only-fixable:
+    executor: lacework/default
+    steps:
+      - checkout
+      - lacework/ctr-vuln-scan:
+          registry: "index.docker.io"
+          repository: chriscircleci/vuln_django
+          tag: 7f7305bea884b63578c28d4513a916e2247ec152
+          fixable: true
 
   integration-test-scan-pkg-manifest:
     executor: lacework/default
