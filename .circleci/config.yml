@@ -64,9 +64,11 @@ jobs:
 
   integration-test-ctr-vuln-scan-show-only-fixable:
     working_directory: ~/project
-    executor: lacework/default
+    # executor: lacework/default
+    machine: true
     steps:
       - checkout
+      - lacework/install-cli
       - lacework/ctr-vuln-scan:
           registry: "index.docker.io"
           repository: chriscircleci/vuln_django
