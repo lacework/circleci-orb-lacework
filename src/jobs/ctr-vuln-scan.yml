@@ -46,6 +46,7 @@ steps:
       condition: <<parameters.html>>
       steps:
         - run:
+            name: Create repo to persist artifacts
             command: |
               _repo="<<parameters.repository>>"
               _repo_format="${_repo//\//-}"
