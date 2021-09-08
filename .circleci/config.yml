@@ -159,7 +159,7 @@ workflows:
           registry: "index.docker.io"
           repository: "lacework/lacework-cli"
           tag: "latest"
-          fail_on_fixable: true
+          # fail_on_fixable: true
 
       # Test scan-pkg-manifest
       - lacework/scan-pkg-manifest:
