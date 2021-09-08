@@ -41,6 +41,7 @@ steps:
       html: << parameters.html >>
       details: << parameters.details >>
       no_output_timeout: << parameters.no_output_timeout >>
+      fail_on_fixable: << parameters.fail_on_fixable >>
   - when:
       condition: <<parameters.html>>
       steps:
