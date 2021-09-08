@@ -39,7 +39,7 @@ jobs:
           details: on
           html: yes
           no_output_timeout: 20m
-          fail_on_fixable: true
+          fail_on_fixable: << parameters.fail_on_fixable >>
       - run:
           command: |
             mkdir  lacework-artifacts/
@@ -142,7 +142,8 @@ workflows:
     when: << pipeline.parameters.run-integration-tests >>
     jobs:
       - integration-test-install-cli
-      - integration-test-ctr-vuln-scan
+      - integration-test-ctr-vuln-scan:
+          fail_on_fixable: false
       - integration-test-scan-pkg-manifest
       - integration-test-ctr-vuln-scan-fail_on_fixable
       - integration-test-ctr-vuln-scan-show-only-fixable
