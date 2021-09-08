@@ -146,12 +146,20 @@ workflows:
       - integration-test-scan-pkg-manifest
       - integration-test-ctr-vuln-scan-fail_on_fixable
       - integration-test-ctr-vuln-scan-show-only-fixable
+
+      # Test multiple permutations of the job abstraction
       - lacework/ctr-vuln-scan:
           registry: "index.docker.io"
           repository: "lacework/lacework-cli"
           tag: "latest"
           html: true
           no_output_timeout: 20m
+
+      - lacework/ctr-vuln-scan:
+          registry: "index.docker.io"
+          repository: "lacework/lacework-cli"
+          tag: "latest"
+          fail_on_fixable: true
 
       # Test scan-pkg-manifest
       - lacework/scan-pkg-manifest:

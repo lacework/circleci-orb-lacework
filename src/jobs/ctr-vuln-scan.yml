@@ -28,6 +28,10 @@ parameters:
     description: Elapsed time the command can run without output
     type: string
     default: 20m
+  fail_on_fixable:
+    description: Fail current job if assessed container has fixable vulnerabilities
+    type: boolean
+    default: false
 steps:
   - ctr-vuln-scan:
       registry: << parameters.registry >>
