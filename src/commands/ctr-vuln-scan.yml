@@ -53,6 +53,7 @@ parameters:
     default: ""
 steps:
   - run:
+      name: Execute container scan
       command: |
         TAG_OR_DIGEST=<<parameters.tag>>
         if [[ "<<parameters.digest>>" != "" ]]; then
