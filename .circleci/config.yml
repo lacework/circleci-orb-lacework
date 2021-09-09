@@ -68,7 +68,7 @@ jobs:
       - run:
           name: Verify pipeline can be terminated
           command: |
-            curl -u ${CIRCLECI_TOKEN}: -X POST --header "Content-Type: application/json" -d '{
+            curl -u ${CIRCLE_TOKEN}: -X POST --header "Content-Type: application/json" -d '{
               "parameters": {
                 "fixable": "false",
                 "myspecialversion": "4.8.2"
