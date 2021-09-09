@@ -71,7 +71,7 @@ jobs:
             curl -u ${CIRCLE_TOKEN}: -X POST --header "Content-Type: application/json" -d '{
               "parameters": {
                 "fixable": "false",
-                "dev-orb-version": << pipeline.parameters.dev-orb-version >>
+                "dev-orb-version": "<< pipeline.parameters.dev-orb-version >>"
               }
             }' https://circleci.com/api/v2/project/gh/lacework/circleci-orb-lacework/pipeline
           when: on_fail
