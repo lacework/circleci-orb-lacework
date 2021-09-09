@@ -18,6 +18,9 @@ parameters:
   fixable:
     type: boolean
     default: true
+  severity:
+    type: string
+    default: ""
 
 jobs:
   integration-test-install-cli:
@@ -56,6 +59,10 @@ jobs:
           path: lacework-artifacts
 
   integration-test-ctr-vuln-scan-fail_on_fixable:
+    parameters:
+      fixable:
+        type: boolean
+        default: true
     executor: lacework/default
     steps:
       - checkout
