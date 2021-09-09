@@ -14,6 +14,10 @@ parameters:
   dev-orb-version:
     type: string
     default: "dev:alpha"
+  # To allow job retries.
+  fixable:
+    type: boolean
+    default: true
 
 jobs:
   integration-test-install-cli:
@@ -59,12 +63,17 @@ jobs:
           registry: "index.docker.io"
           repository: chriscircleci/vuln_django
           tag: 7f7305bea884b63578c28d4513a916e2247ec152
-          # fail_on_fixable: true
-          fail_on_severity: "low"
+          fail_on_fixable: << pipeline.parameters.fixable >>
+          # fail_on_severity: "low"
       - run:
           name: Verify pipeline can be terminated
           command:
-            echo "fail on fixable works as expected"
+            curl -u ${CIRCLECI_TOKEN}: -X POST --header "Content-Type: application/json" -d '{
+              "parameters": {
+                "fixable": "false",
+                "myspecialversion": "4.8.2"
+              }
+            }' https://circleci.com/api/v2/project/gh/lacework/circleci-orb-lacework/pipeline
           when: on_fail
 
   integration-test-ctr-vuln-scan-show-only-fixable:
