@@ -1,0 +1,17 @@
+description: >
+  This example runs a container vulnerability scan using the ctr-vuln-scan job,
+  it will generate the container vulnerability assessment in HTML format,
+  store the artifact automatically, and cause the pipeline to fail by returning
+  a non-zero exit code when fixable vulnerabilities are returned by the scan.
+usage:
+  version: 2.1
+  orbs:
+    lacework: lacework/lacework@x.y
+  workflows:
+    scan_container_and_terminate_pipeline_on_fixable_vuln:
+      jobs:
+        - lacework/ctr-vuln-scan:
+            registry: "index.docker.io"
+            repository: "lacework/lacework-cli"
+            html: true
+            fail_on_fixable: true

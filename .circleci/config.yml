@@ -63,17 +63,6 @@ jobs:
           repository: chriscircleci/vuln_django
           tag: 7f7305bea884b63578c28d4513a916e2247ec152
           fail_on_fixable: false
-          # fail_on_severity: "low"
-      # - run:
-      #     name: Verify pipeline can be terminated
-      #     command: |
-      #       curl -u ${CIRCLE_TOKEN}: -X POST --header "Content-Type: application/json" -d '{
-      #         "parameters": {
-      #           "fixable": "false",
-      #           "dev-orb-version": "<< pipeline.parameters.dev-orb-version >>"
-      #         }
-      #       }' https://circleci.com/api/v2/project/gh/lacework/circleci-orb-lacework/pipeline
-      #     when: on_fail
 
   integration-test-ctr-vuln-scan-show-only-fixable:
     working_directory: ~/project
