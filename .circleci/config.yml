@@ -14,13 +14,6 @@ parameters:
   dev-orb-version:
     type: string
     default: "dev:alpha"
-  # To allow job retries.
-  fixable:
-    type: boolean
-    default: true
-  severity:
-    type: string
-    default: ""
 
 jobs:
   integration-test-install-cli:
@@ -45,8 +38,7 @@ jobs:
           tag: "debian-10"
           details: on
           html: yes
-          no_output_timeout: 20m
-          fail_on_fixable: false
+          no_output_timeout: 10m
       - run:
           command: |
             mkdir  lacework-artifacts/
@@ -70,22 +62,21 @@ jobs:
           registry: "index.docker.io"
           repository: chriscircleci/vuln_django
           tag: 7f7305bea884b63578c28d4513a916e2247ec152
-          fail_on_fixable: << parameters.fixable >>
+          fail_on_fixable: false
           # fail_on_severity: "low"
-      - run:
-          name: Verify pipeline can be terminated
-          command: |
-            curl -u ${CIRCLE_TOKEN}: -X POST --header "Content-Type: application/json" -d '{
-              "parameters": {
-                "fixable": "false",
-                "dev-orb-version": "<< pipeline.parameters.dev-orb-version >>"
-              }
-            }' https://circleci.com/api/v2/project/gh/lacework/circleci-orb-lacework/pipeline
-          when: on_fail
+      # - run:
+      #     name: Verify pipeline can be terminated
+      #     command: |
+      #       curl -u ${CIRCLE_TOKEN}: -X POST --header "Content-Type: application/json" -d '{
+      #         "parameters": {
+      #           "fixable": "false",
+      #           "dev-orb-version": "<< pipeline.parameters.dev-orb-version >>"
+      #         }
+      #       }' https://circleci.com/api/v2/project/gh/lacework/circleci-orb-lacework/pipeline
+      #     when: on_fail
 
   integration-test-ctr-vuln-scan-show-only-fixable:
     working_directory: ~/project
-    # executor: lacework/default
     machine: true
     steps:
       - checkout
@@ -179,9 +170,8 @@ workflows:
 
       - lacework/ctr-vuln-scan:
           registry: "index.docker.io"
-          repository: "lacework/lacework-cli"
-          tag: "latest"
-          # fail_on_fixable: true
+          repository: "chriscircleci/vuln_django"
+          tag: "7f7305bea884b63578c28d4513a916e2247ec152" 
 
       # Test scan-pkg-manifest
       - lacework/scan-pkg-manifest:
