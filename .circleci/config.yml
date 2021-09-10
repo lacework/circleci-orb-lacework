@@ -171,7 +171,7 @@ workflows:
       - lacework/ctr-vuln-scan:
           registry: "index.docker.io"
           repository: "chriscircleci/vuln_django"
-          tag: "7f7305bea884b63578c28d4513a916e2247ec152" 
+          tag: "7f7305bea884b63578c28d4513a916e2247ec152"
 
       # Test scan-pkg-manifest
       - lacework/scan-pkg-manifest:
