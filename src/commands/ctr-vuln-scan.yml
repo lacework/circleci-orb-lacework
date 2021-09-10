@@ -48,7 +48,7 @@ parameters:
     type: boolean
     default: false
   fail_on_severity:
-    description: specify a severity threshold to fail if vulnerabilities are found (critical, high, medium, low, info)
+    description: Specify a severity threshold to fail if vulnerabilities are found (critical, high, medium, low, info)
     type: string
     default: ""
 steps:
