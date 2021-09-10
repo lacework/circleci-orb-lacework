@@ -38,7 +38,7 @@ jobs:
           tag: "debian-10"
           details: on
           html: yes
-          no_output_timeout: 30m
+          no_output_timeout: 10m
       - run:
           command: |
             mkdir  lacework-artifacts/
@@ -49,6 +49,55 @@ jobs:
 
       - store_artifacts:
           path: lacework-artifacts
+
+  integration-test-ctr-vuln-scan-fail_on_fixable:
+    parameters:
+      fixable:
+        type: boolean
+        default: true
+    executor: lacework/default
+    steps:
+      - checkout
+      - lacework/ctr-vuln-scan:
+          registry: "index.docker.io"
+          repository: chriscircleci/vuln_django
+          tag: 7f7305bea884b63578c28d4513a916e2247ec152
+          fail_on_fixable: false
+
+  integration-test-ctr-vuln-scan-show-only-fixable:
+    working_directory: ~/project
+    machine: true
+    steps:
+      - checkout
+      - lacework/install-cli
+      - lacework/ctr-vuln-scan:
+          registry: "index.docker.io"
+          repository: chriscircleci/vuln_django
+          tag: 7f7305bea884b63578c28d4513a916e2247ec152
+          fixable: true
+          html: true
+      - run:
+          name: Persist html vuln report as build artifact
+          command: |
+            mkdir  lacework-artifacts/
+
+            if [ `ls -1 *.html 2>/dev/null | wc -l ` -gt 0 ]; then
+                mv *.html lacework-artifacts/
+            fi
+
+      - store_artifacts:
+          path: lacework-artifacts
+
+  integration-test-ctr-vuln-scan-fail-on-severity:
+    working_directory: ~/project
+    machine: true
+    steps:
+      - lacework/install-cli
+      - lacework/ctr-vuln-scan:
+          registry: "index.docker.io"
+          repository: "lacework/lacework-cli"
+          tag: "debian-10"
+          fail_on_severity: "critical"
 
   integration-test-scan-pkg-manifest:
     executor: lacework/default
@@ -108,12 +157,36 @@ workflows:
       - integration-test-install-cli
       - integration-test-ctr-vuln-scan
       - integration-test-scan-pkg-manifest
+      - integration-test-ctr-vuln-scan-fail_on_fixable
+      - integration-test-ctr-vuln-scan-show-only-fixable
+      - integration-test-ctr-vuln-scan-fail-on-severity
+
+      # Test multiple permutations of the job abstraction
       - lacework/ctr-vuln-scan:
           registry: "index.docker.io"
           repository: "lacework/lacework-cli"
           tag: "latest"
           html: true
-          no_output_timeout: 30m
+          no_output_timeout: 20m
+
+      - lacework/ctr-vuln-scan:
+          registry: "index.docker.io"
+          repository: "chriscircleci/vuln_django"
+          tag: "7f7305bea884b63578c28d4513a916e2247ec152"
+
+      # Test scan-pkg-manifest
+      - lacework/scan-pkg-manifest:
+          manifest: '{
+            "os_pkg_info_list": [
+                {
+                    "os":"Ubuntu",
+                    "os_ver":"18.04",
+                    "pkg": "openssl",
+                    "pkg_ver": "1.1.1-1ubuntu2.1~18.04.5"
+                }
+              ]
+            }'
+
 
       # publish a semver version of the orb. relies on the commit
       # subject containing the text "[semver:patch|minor|major|skip]"
