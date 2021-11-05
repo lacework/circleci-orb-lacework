@@ -28,6 +28,18 @@ jobs:
               exit 1
             fi
 
+  integration-test-install-scanner:
+    executor: orb-tools/ubuntu
+    steps:
+      - checkout
+      - lacework/install-lw-scanner
+      - run:
+          command: |
+            if ! lw-scanner version; then
+              echo "The lacework inline scanner was not found"
+              exit 1
+            fi
+
   integration-test-ctr-vuln-scan:
     executor: lacework/default
     steps:
