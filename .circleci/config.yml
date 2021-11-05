@@ -167,6 +167,7 @@ workflows:
     when: << pipeline.parameters.run-integration-tests >>
     jobs:
       - integration-test-install-cli
+      - install-lw-scanner
       - integration-test-ctr-vuln-scan
       - integration-test-scan-pkg-manifest
       - integration-test-ctr-vuln-scan-fail_on_fixable
