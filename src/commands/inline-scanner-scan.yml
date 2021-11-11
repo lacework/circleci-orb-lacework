@@ -1,0 +1,26 @@
+description: >
+  Execute inline scan of container image.
+parameters:
+  registry:
+    description: Container registry where the container image has been published
+    type: string
+  repository:
+    description: Repository name that contains the container image
+    type: string
+  tag:
+    description: The image tag to scan
+    type: string
+    default: latest
+  details:
+    description: Show more details of the vulnerability scan results
+    type: boolean
+    default: false
+  html:
+    description: Generate a vulnerability assessment in HTML format
+    type: boolean
+    default: false
+steps:
+  - run:
+      name: Execute inline scan
+      command: |
+        docker pull chriscircleci/vuln_django:7f7305bea884b63578c28d4513a916e2247ec152
