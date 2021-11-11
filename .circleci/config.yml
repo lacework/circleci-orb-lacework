@@ -50,7 +50,7 @@ jobs:
           name: Execute scan
           command: |
             docker pull chriscircleci/vuln_django:7f7305bea884b63578c28d4513a916e2247ec152
-      - lacework/inline-scanner-scan
+      # - lacework/inline-scanner-scan
 
 
   integration-test-ctr-vuln-scan:
