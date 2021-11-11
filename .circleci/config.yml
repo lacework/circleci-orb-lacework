@@ -42,7 +42,7 @@ jobs:
             fi
 
   integration-test-execute-inline-scan:
-    executor: orb-tools/ubuntu
+    machine: true
     steps:
       - checkout
       - lacework/install-lw-scanner
