@@ -42,6 +42,7 @@ jobs:
             fi
 
   integration-test-execute-inline-scan:
+    working_directory: ~/project
     machine: true
     steps:
       - checkout
