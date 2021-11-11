@@ -19,6 +19,10 @@ parameters:
     description: Generate a vulnerability assessment in HTML format
     type: boolean
     default: false
+  digest:
+    description: An image digest to scan (format sha256:1ee...1d3b)
+    type: string
+    default: ""
 steps:
   - run:
       name: Execute inline scan
