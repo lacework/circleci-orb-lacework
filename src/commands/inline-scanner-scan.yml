@@ -29,8 +29,20 @@ parameters:
     default: ""
   image_name:
     description: Docker image name
-    string: string
+    type: string
     default: "chriscircleci/vuln_django"
+  fixable:
+    description: Display fixable vulns only
+    default: false
+    type: boolean
+  scan_library_packages:
+    description: Scan library packages from image
+    type: boolean
+    default: false
+  save:
+    description: Save results in Lacework platform
+    type: boolean
+    default: false
 steps:
   - run:
       name: Execute inline scan
@@ -41,4 +53,7 @@ steps:
           TAG_OR_DIGEST=<<parameters.digest>>
         fi
 
-        lw-scanner evaluate <<parameters.image_name>> $TAG_OR_DIGEST -d=/home/circleci/project/ --scan-library-packages
+        lw-scanner evaluate <<parameters.image_name>> $TAG_OR_DIGEST -d=/home/circleci/project/ \
+        <<# parameters.fixable >> --fixable <</ parameters.fixable >> \
+        <<# parameters.scan_library_packages >> --scan-library-packages <</ parameters.scan_library_packages >> \
+        <<# parameters.save >> --save <</ parameters.save >>
