@@ -43,6 +43,10 @@ parameters:
     description: Save results in Lacework platform
     type: boolean
     default: false
+  data-directory:
+    description: Directory path to store command output
+    default: ""
+    type: string
 steps:
   - run:
       name: Execute inline scan
@@ -53,7 +57,9 @@ steps:
           TAG_OR_DIGEST=<<parameters.digest>>
         fi
 
-        lw-scanner evaluate <<parameters.image_name>> $TAG_OR_DIGEST -d=/home/circleci/project/ \
+
+        lw-scanner evaluate <<parameters.image_name>> $TAG_OR_DIGEST  \
         <<# parameters.fixable >> --fixable <</ parameters.fixable >> \
         <<# parameters.scan_library_packages >> --scan-library-packages <</ parameters.scan_library_packages >> \
-        <<# parameters.save >> --save <</ parameters.save >>
+        <<# parameters.save >> --save <</ parameters.save >> \
+        <<# parameters.data-directory >> -d=<< parameters.data-directory >> << / parameters.data-directory >>
