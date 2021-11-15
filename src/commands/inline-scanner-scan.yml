@@ -62,4 +62,4 @@ steps:
         <<# parameters.fixable >> --fixable <</ parameters.fixable >> \
         <<# parameters.scan_library_packages >> --scan-library-packages <</ parameters.scan_library_packages >> \
         <<# parameters.save >> --save <</ parameters.save >> \
-        <<# parameters.data-directory >> -d=<< parameters.data-directory >> << / parameters.data-directory >>
+        <<# parameters.data-directory >> -d=<< parameters.data-directory >> <</ parameters.data-directory >>
