@@ -30,6 +30,7 @@ parameters:
   image_name:
     description: Docker image name
     string: string
+    default: "chriscircleci/vuln_django"
 steps:
   - run:
       name: Execute inline scan
