@@ -55,7 +55,7 @@ jobs:
           registry: ""
           repository: ""
           tag: "7f7305bea884b63578c28d4513a916e2247ec152"
-          # image_name: "chriscircleci/vuln_django"
+          image_name: "chriscircleci/vuln_django"
 
 
   integration-test-ctr-vuln-scan:

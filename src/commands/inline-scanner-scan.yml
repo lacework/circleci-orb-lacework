@@ -30,7 +30,7 @@ parameters:
   image_name:
     description: Docker image name
     type: string
-    default: "chriscircleci/vuln_django"
+    default: ""
   fixable:
     description: Display fixable vulns only
     default: false
@@ -57,6 +57,11 @@ steps:
           TAG_OR_DIGEST=<<parameters.digest>>
         fi
 
+        if [[ "<<parameters.image_name>>" == "" ]]; then
+          # Ensure image name is specifed
+          echo "Please specify an image name an rerun job."
+          exit 1
+        fi
 
         lw-scanner evaluate <<parameters.image_name>> $TAG_OR_DIGEST  \
         <<# parameters.fixable >> --fixable <</ parameters.fixable >> \
