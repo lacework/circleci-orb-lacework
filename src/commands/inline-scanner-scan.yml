@@ -10,7 +10,7 @@ parameters:
   image_tag:
     description: The image tag to scan
     type: string
-    default: latest
+    default: "7f7305bea884b63578c28d4513a916e2247ec152"
   details:
     description: Show more details of the vulnerability scan results
     type: boolean
