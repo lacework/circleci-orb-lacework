@@ -7,7 +7,7 @@ parameters:
   repository:
     description: Repository name that contains the container image
     type: string
-  tag:
+  image_tag:
     description: The image tag to scan
     type: string
     default: latest
@@ -47,11 +47,15 @@ parameters:
     description: Directory path to store command output
     default: ""
     type: string
+  tags:
+    description: Environment tags from CI execution, e.g. --tags component=frontend
+    default: ""
+    type: string
 steps:
   - run:
       name: Execute inline scan
       command: |
-        TAG_OR_DIGEST=<<parameters.tag>>
+        TAG_OR_DIGEST=<<parameters.image_tag>>
         if [[ "<<parameters.digest>>" != "" ]]; then
           # If an image digest is specified, use it instead of the tag
           TAG_OR_DIGEST=<<parameters.digest>>
@@ -67,4 +71,5 @@ steps:
         <<# parameters.fixable >> --fixable <</ parameters.fixable >> \
         <<# parameters.scan_library_packages >> --scan-library-packages <</ parameters.scan_library_packages >> \
         <<# parameters.save >> --save <</ parameters.save >> \
-        <<# parameters.data-directory >> -d=<< parameters.data-directory >> <</ parameters.data-directory >>
+        <<# parameters.data-directory >> -d=<< parameters.data-directory >> <</ parameters.data-directory >> \
+        <<# parameters.tags >> --tags << parameters.tags >> <</ parameters.tags >>
