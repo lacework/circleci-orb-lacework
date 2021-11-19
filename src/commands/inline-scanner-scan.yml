@@ -2,11 +2,6 @@ description: >
   Execute inline scan of container image.
 parameters:
   registry:
-    description: Container registry where the container image has been published
-    type: string
-  repository:
-    description: Repository name that contains the container image
-    type: string
   image_tag:
     description: The image tag to scan
     type: string
@@ -19,11 +14,15 @@ parameters:
     description: Generate a vulnerability assessment in HTML format
     type: boolean
     default: false
+  build_plan:
+    description: Build plan name from CircleCI execution environment
+    type: string
+    default: ""
   digest:
     description: An image digest to scan (format sha256:1ee...1d3b)
     type: string
     default: ""
-  build-id:
+  build_id:
     description: Build ID from CircleCI
     type: string
     default: ""
@@ -72,4 +71,6 @@ steps:
         <<# parameters.scan_library_packages >> --scan-library-packages <</ parameters.scan_library_packages >> \
         <<# parameters.save >> --save <</ parameters.save >> \
         <<# parameters.data-directory >> -d=<< parameters.data-directory >> <</ parameters.data-directory >> \
-        <<# parameters.tags >> --tags << parameters.tags >> <</ parameters.tags >>
+        <<# parameters.tags >> --tags << parameters.tags >> <</ parameters.tags >> \
+        <<# parameters.build_id >> --build-id << parameters.build_id >> <</ parameters.build_id >> \
+        <<# parameters.build_plan >> --build-plan << parameters.build_plan >> <</ parameters.build_plan >> \

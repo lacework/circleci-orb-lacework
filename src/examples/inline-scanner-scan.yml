@@ -8,5 +8,5 @@ usage:
     scan_my_container:
       jobs:
         - lacework/inline-scanner-scan:
-            registry: "index.docker.io"
-            repository: "lacework/lacework-cli"
+            image_tag: "latest"
+            image_name: "lacework/lacework-cli"
