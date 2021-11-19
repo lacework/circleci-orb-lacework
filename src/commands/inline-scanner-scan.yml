@@ -5,7 +5,7 @@ parameters:
   image_tag:
     description: The image tag to scan
     type: string
-    default: "7f7305bea884b63578c28d4513a916e2247ec152"
+    default: ""
   details:
     description: Show more details of the vulnerability scan results
     type: boolean
@@ -74,3 +74,4 @@ steps:
         <<# parameters.tags >> --tags << parameters.tags >> <</ parameters.tags >> \
         <<# parameters.build_id >> --build-id << parameters.build_id >> <</ parameters.build_id >> \
         <<# parameters.build_plan >> --build-plan << parameters.build_plan >> <</ parameters.build_plan >> \
+        <<# parameters.html >> --html <</ parameters.html >>
