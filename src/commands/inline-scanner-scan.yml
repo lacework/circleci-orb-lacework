@@ -1,7 +1,6 @@
 description: >
   Execute inline scan of container image.
 parameters:
-  registry:
   image_tag:
     description: The image tag to scan
     type: string
