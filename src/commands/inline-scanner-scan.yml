@@ -95,4 +95,4 @@ steps:
         <<# parameters.high_violation_exit_code >> --high-violation-exit-code << parameters.high_violation_exit_code >> <</ parameters.high_violation_exit_code >> \
         <<# parameters.medium_violation_exit_code >> --medium-violation-exit-code << parameters.medium_violation_exit_code >> <</ parameters.medium_violation_exit_code >> \
         <<# parameters.low_violation_exit_code >> --low-violation-exit-code << parameters.low_violation_exit_code >> <</ parameters.low_violation_exit_code >> \
-        <<# parameters.info_violation_exit_code >> --info-violation-exit-code int << parameters.info_violation_exit_code >> <</ parameters.info_violation_exit_code >> \
+        <<# parameters.info_violation_exit_code >> --info-violation-exit-code << parameters.info_violation_exit_code >> <</ parameters.info_violation_exit_code >> \
