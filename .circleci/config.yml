@@ -32,7 +32,7 @@ jobs:
     executor: orb-tools/ubuntu
     steps:
       - checkout
-      - lacework/install-inline-scanner
+      - lacework/install-lw-scanner
       - run:
           name: Verify install
           command: |
@@ -46,7 +46,7 @@ jobs:
     machine: true
     steps:
       - checkout
-      - lacework/install-inline-scanner
+      - lacework/install-lw-scanner
       - run:
           name: Pull in vuln image for testing
           command: |
