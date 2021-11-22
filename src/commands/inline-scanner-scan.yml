@@ -5,10 +5,6 @@ parameters:
     description: The image tag to scan
     type: string
     default: ""
-  details:
-    description: Show more details of the vulnerability scan results
-    type: boolean
-    default: false
   html:
     description: Generate a vulnerability assessment in HTML format
     type: boolean
@@ -49,6 +45,22 @@ parameters:
     description: Environment tags from CI execution, e.g. --tags component=frontend
     default: ""
     type: string
+  critical_violation_exit_code:
+    description: Exit code for critical policy violation (default -1)
+    type: integer
+  high_violation_exit_code:
+    description: Exit code for high policy violation (default -1)
+    type: integer
+  medium_violation_exit_code:
+    description: Exit code for medium policy violation (default -1)
+    type: integer
+  low_violation_exit_code:
+    description: Exit code for low policy violation (default -1)
+    type: integer
+  info_violation_exit_code:
+    description: Exit code for info policy violation (default -1)
+    type: integer
+
 steps:
   - run:
       name: Execute inline scan
@@ -73,4 +85,9 @@ steps:
         <<# parameters.tags >> --tags << parameters.tags >> <</ parameters.tags >> \
         <<# parameters.build_id >> --build-id << parameters.build_id >> <</ parameters.build_id >> \
         <<# parameters.build_plan >> --build-plan << parameters.build_plan >> <</ parameters.build_plan >> \
-        <<# parameters.html >> --html <</ parameters.html >>
+        <<# parameters.html >> --html <</ parameters.html >> \
+        <<# parameters.critical_violation_exit_code >> --critical-violation-exit-code << parameters.critical_violation_exit_code >> <</ parameters.critical_violation_exit_code >> \
+        <<# parameters.high_violation_exit_code >> --high-violation-exit-code << parameters.high_violation_exit_code >> <</ parameters.high_violation_exit_code >> \
+        <<# parameters.medium_violation_exit_code >> --medium-violation-exit-code << parameters.medium_violation_exit_code >> <</ parameters.medium_violation_exit_code >> \
+        <<# parameters.low_violation_exit_code >> --low-violation-exit-code << parameters.low_violation_exit_code >> <</ parameters.low_violation_exit_code >> \
+        <<# parameters.info_violation_exit_code >> --info-violation-exit-code int << parameters.info_violation_exit_code >> <</ parameters.info_violation_exit_code >> \
