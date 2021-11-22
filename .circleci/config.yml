@@ -28,11 +28,11 @@ jobs:
               exit 1
             fi
 
-  integration-test-install-scanner:
+  integration-test-install-inline-scanner:
     executor: orb-tools/ubuntu
     steps:
       - checkout
-      - lacework/install-lw-scanner
+      - lacework/install-inline-scanner
       - run:
           name: Verify install
           command: |
@@ -41,17 +41,17 @@ jobs:
               exit 1
             fi
 
-  integration-test-execute-inline-scan:
+  integration-test-execute-inline-evaluation:
     working_directory: ~/project
     machine: true
     steps:
       - checkout
-      - lacework/install-lw-scanner
+      - lacework/install-inline-scanner
       - run:
           name: Pull in vuln image for testing
           command: |
             docker pull chriscircleci/vuln_django:7f7305bea884b63578c28d4513a916e2247ec152
-      - lacework/inline-scanner-scan:
+      - lacework/inline-scanner-evaluate:
           image_tag: "7f7305bea884b63578c28d4513a916e2247ec152"
           image_name: "chriscircleci/vuln_django"
           html: true
@@ -202,13 +202,13 @@ workflows:
     when: << pipeline.parameters.run-integration-tests >>
     jobs:
       - integration-test-install-cli
-      - integration-test-install-scanner
+      - integration-test-install-inline-scanner
       - integration-test-ctr-vuln-scan
       - integration-test-scan-pkg-manifest
       - integration-test-ctr-vuln-scan-fail_on_fixable
       - integration-test-ctr-vuln-scan-show-only-fixable
       - integration-test-ctr-vuln-scan-fail-on-severity
-      - integration-test-execute-inline-scan
+      - integration-test-execute-inline-evaluation
 
       # Test multiple permutations of the job abstraction
       - lacework/ctr-vuln-scan:
