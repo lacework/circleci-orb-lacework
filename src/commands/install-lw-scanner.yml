@@ -4,4 +4,4 @@ steps:
   - run:
       name: Installing the lacework lw-scanner
       command: |
-        curl https://raw.githubusercontent.com/ipcrm/circleci-orb-lacework/ally-713/src/scripts/install_lwscanner.sh | sudo bash
+        curl https://raw.githubusercontent.com/lacework/circleci-orb-lacework/lw-scanner/scripts/install.sh | sudo bash

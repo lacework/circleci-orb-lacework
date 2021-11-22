@@ -55,6 +55,9 @@ jobs:
           image_tag: "7f7305bea884b63578c28d4513a916e2247ec152"
           image_name: "chriscircleci/vuln_django"
           html: true
+          tags: "orb_test=true"
+          save: true
+          data-directory: ~/project/vuln_report
       - run:
           command: |
             mkdir  lacework-artifacts/
