@@ -48,18 +48,23 @@ parameters:
   critical_violation_exit_code:
     description: Exit code for critical policy violation (default -1)
     type: integer
+    default: -1
   high_violation_exit_code:
     description: Exit code for high policy violation (default -1)
     type: integer
+    default: -1
   medium_violation_exit_code:
     description: Exit code for medium policy violation (default -1)
     type: integer
+    default: -1
   low_violation_exit_code:
     description: Exit code for low policy violation (default -1)
     type: integer
+    default: -1
   info_violation_exit_code:
     description: Exit code for info policy violation (default -1)
     type: integer
+    default: -1
 
 steps:
   - run:
