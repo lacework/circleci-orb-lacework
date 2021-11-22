@@ -32,7 +32,7 @@ jobs:
     executor: orb-tools/ubuntu
     steps:
       - checkout
-      - lacework/install-lw-scanner
+      - lacework/install-inline-scanner
       - run:
           name: Verify install
           command: |
@@ -46,12 +46,12 @@ jobs:
     machine: true
     steps:
       - checkout
-      - lacework/install-lw-scanner
+      - lacework/install-inline-scanner
       - run:
           name: Pull in vuln image for testing
           command: |
             docker pull chriscircleci/vuln_django:7f7305bea884b63578c28d4513a916e2247ec152
-      - lacework/inline-scanner-scan:
+      - lacework/inline-scanner-evaluate:
           image_tag: "7f7305bea884b63578c28d4513a916e2247ec152"
           image_name: "chriscircleci/vuln_django"
           html: true
