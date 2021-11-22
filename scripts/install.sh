@@ -5,16 +5,17 @@ set -eou pipefail
 # If the variable $LW_DEBUG is set, print all shell commands executed
 if [ -n "${LW_DEBUG:-}" ]; then set -x; fi
 
-readonly github_releases="https://github.com/lacework/go-sdk/releases"
+readonly utility_name="Lacework Inline Scanner"
+readonly github_releases="https://github.com/lacework/lacework-vulnerability-scanner/releases"
 readonly default_install_dir=/usr/local/bin
-readonly package_name=lacework-cli
-readonly binary_name=lacework
+readonly package_name=lw-scanner
+readonly binary_name=lw-scanner
 
 usage() {
   local _cmd
   _cmd="$(basename "${0}")"
   cat <<USAGE
-${_cmd}: Installs the Lacework Command Line Interface.
+${_cmd}: Installs the $utility_name.
 
 Authors: Technology Alliances <tech-ally@lacework.net>
 
@@ -65,14 +66,14 @@ main() {
     detect_platform
   fi
 
-  log "Installing the Lacework CLI"
+  log "Installing the $utility_name"
   create_workdir
   download_archive "$version" "$target"
   verify_archive
   extract_archive
-  install_cli
+  install_lwscanner
   print_cli_version
-  log "The Lacework CLI has been successfully installed."
+  log "The $utility_name has been successfully installed."
 }
 
 create_workdir() {
@@ -165,6 +166,7 @@ download_archive() {
   local _version="${1:-latest}"
   local -r _target="${2:?}"
   local url
+  local checksum_ext="checksum.txt"
 
   if [ "$_version" == "latest" ]; then
     url="${github_releases}/latest/download/${package_name}-${_target}.${ext}"
@@ -173,13 +175,13 @@ download_archive() {
   fi
 
   download_file "${url}" "${workdir}/${package_name}-${_version}.${ext}"
-  download_file "${url}.sha256sum" "${workdir}/${package_name}-${_version}.${ext}.sha256sum"
+  download_file "${url}.${checksum_ext}" "${workdir}/${package_name}-${_version}.${ext}.${checksum_ext}"
 
   archive="${package_name}-${_target}.${ext}"
-  sha_file="${package_name}-${_target}.${ext}.sha256sum"
+  sha_file="${package_name}-${_target}.${ext}.${checksum_ext}"
 
   mv -v "${workdir}/${package_name}-${_version}.${ext}" "${archive}"
-  mv -v "${workdir}/${package_name}-${_version}.${ext}.sha256sum" "${sha_file}"
+  mv -v "${workdir}/${package_name}-${_version}.${ext}.${checksum_ext}" "${sha_file}"
 }
 
 verify_archive() {
@@ -193,7 +195,7 @@ extract_archive() {
     tar.gz)
       archive_dir="${archive%.tar.gz}"
       mkdir "${archive_dir}"
-      zcat "${archive}" | tar --extract --directory "${archive_dir}" --strip-components=1
+      zcat "${archive}" | tar --extract --directory "${archive_dir}" --strip-components=2
 
       ;;
     zip)
@@ -206,14 +208,15 @@ extract_archive() {
   esac
 }
 
-install_cli() {
-  log "Installing Lacework CLI into $installation_dir"
+install_lwscanner() {
+  log "Installing $utility_name into $installation_dir"
+  log "Working dir $(pwd)"
   mkdir -pv "$installation_dir"
   install -v "${archive_dir}/${binary_name}" "${installation_dir}/${binary_name}"
 }
 
 print_cli_version() {
-  log "Verifying installed Lacework CLI version"
+  log "Verifying installed $utility_name version"
   LW_NOCACHE=1 LW_TELEMETRY_DISABLE=1 LW_UPDATES_DISABLE=1 "${installation_dir}/${binary_name}" version
 }
 
