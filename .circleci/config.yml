@@ -51,7 +51,7 @@ jobs:
           name: Pull in vuln image for testing
           command: |
             docker pull chriscircleci/vuln_django:7f7305bea884b63578c28d4513a916e2247ec152
-      - lacework/inline-scanner-evaluate:
+      - lacework/inline-scanner-scan:
           image_tag: "7f7305bea884b63578c28d4513a916e2247ec152"
           image_name: "chriscircleci/vuln_django"
           html: true
