@@ -1,0 +1,7 @@
+description: >
+  Install the Lacework lw-scanner
+steps:
+  - run:
+      name: Installing the lacework lw-scanner
+      command: |
+        curl https://raw.githubusercontent.com/lacework/circleci-orb-lacework/lw-scanner/scripts/install.sh | sudo bash

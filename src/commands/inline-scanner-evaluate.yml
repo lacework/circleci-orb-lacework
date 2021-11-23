@@ -1,0 +1,98 @@
+description: >
+  Execute inline scan of container image.
+parameters:
+  image_tag:
+    description: The image tag to scan
+    type: string
+    default: ""
+  html:
+    description: Generate a vulnerability assessment in HTML format
+    type: boolean
+    default: false
+  build_plan:
+    description: Build plan name from CircleCI execution environment
+    type: string
+    default: ""
+  digest:
+    description: An image digest to scan (format sha256:1ee...1d3b)
+    type: string
+    default: ""
+  build_id:
+    description: Build ID from CircleCI
+    type: string
+    default: ""
+  image_name:
+    description: Docker image name
+    type: string
+    default: ""
+  fixable:
+    description: Display fixable vulns only
+    default: false
+    type: boolean
+  scan_library_packages:
+    description: Scan library packages from image
+    type: boolean
+    default: false
+  save:
+    description: Save results in Lacework platform
+    type: boolean
+    default: false
+  data-directory:
+    description: Directory path to store command output
+    default: ""
+    type: string
+  tags:
+    description: Environment tags from CI execution, e.g. --tags component=frontend
+    default: ""
+    type: string
+  critical_violation_exit_code:
+    description: Exit code for critical policy violation (default -1)
+    type: integer
+    default: -1
+  high_violation_exit_code:
+    description: Exit code for high policy violation (default -1)
+    type: integer
+    default: -1
+  medium_violation_exit_code:
+    description: Exit code for medium policy violation (default -1)
+    type: integer
+    default: -1
+  low_violation_exit_code:
+    description: Exit code for low policy violation (default -1)
+    type: integer
+    default: -1
+  info_violation_exit_code:
+    description: Exit code for info policy violation (default -1)
+    type: integer
+    default: -1
+
+steps:
+  - run:
+      name: Execute inline scan
+      command: |
+        TAG_OR_DIGEST=<<parameters.image_tag>>
+        if [[ "<<parameters.digest>>" != "" ]]; then
+          # If an image digest is specified, use it instead of the tag
+          TAG_OR_DIGEST=<<parameters.digest>>
+        fi
+
+        if [[ "<<parameters.image_name>>" == "" ]]; then
+          # Ensure image name is specifed
+          echo "Please specify an image name an rerun job."
+          exit 1
+        fi
+
+        lw-scanner evaluate <<parameters.image_name>> $TAG_OR_DIGEST  \
+        <<# parameters.fixable >> --fixable <</ parameters.fixable >> \
+        <<# parameters.scan_library_packages >> --scan-library-packages <</ parameters.scan_library_packages >> \
+        <<# parameters.save >> --save <</ parameters.save >> \
+        <<# parameters.data-directory >> -d=<< parameters.data-directory >> <</ parameters.data-directory >> \
+        <<# parameters.tags >> --tags << parameters.tags >> <</ parameters.tags >> \
+        <<# parameters.build_id >> --build-id << parameters.build_id >> <</ parameters.build_id >> \
+        <<# parameters.build_plan >> --build-plan << parameters.build_plan >> <</ parameters.build_plan >> \
+        <<# parameters.html >> --html <</ parameters.html >> \
+        <<# parameters.critical_violation_exit_code >> --critical-violation-exit-code << parameters.critical_violation_exit_code >> <</ parameters.critical_violation_exit_code >> \
+        <<# parameters.high_violation_exit_code >> --high-violation-exit-code << parameters.high_violation_exit_code >> <</ parameters.high_violation_exit_code >> \
+        <<# parameters.medium_violation_exit_code >> --medium-violation-exit-code << parameters.medium_violation_exit_code >> <</ parameters.medium_violation_exit_code >> \
+        <<# parameters.low_violation_exit_code >> --low-violation-exit-code << parameters.low_violation_exit_code >> <</ parameters.low_violation_exit_code >> \
+        <<# parameters.info_violation_exit_code >> --info-violation-exit-code << parameters.info_violation_exit_code >> <</ parameters.info_violation_exit_code >> \
