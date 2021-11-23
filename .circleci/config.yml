@@ -58,7 +58,7 @@ jobs:
           tags: "orb_test=true"
           save: true
           data-directory: ~/project/vuln_report
-          critical_violation_exit_code: -1
+          critical_violation_exit_code: 1
           high_violation_exit_code: -1
           medium_violation_exit_code: -1
           low_violation_exit_code: -1
