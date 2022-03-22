@@ -34,7 +34,7 @@ parameters:
     type: boolean
     default: false
   save:
-    description: Save results in Lacework platform
+    description: Save results in the Lacework platform
     type: boolean
     default: false
   data-directory:
@@ -45,8 +45,8 @@ parameters:
     description: Environment tags from CI execution, e.g. --tags component=frontend
     default: ""
     type: string
-  poliicy:
-    description: Evaluate policies configured in lacework platform
+  policy:
+    description: Evaluate policies configured in the Lacework platform
     default: false
     type: boolean
   critical_violation_exit_code:
