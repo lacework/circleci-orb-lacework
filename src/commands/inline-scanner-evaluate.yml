@@ -34,7 +34,7 @@ parameters:
     type: boolean
     default: false
   save:
-    description: Save results in the Lacework platform
+    description: Save results in Lacework platform
     type: boolean
     default: false
   data-directory:
