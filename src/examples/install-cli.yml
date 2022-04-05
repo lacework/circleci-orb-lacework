@@ -2,7 +2,7 @@ description: >
   This example shows how to install the lacework-cli.
 
   For more information about the Lacework CLI visit:
-    - https://github.com/lacework/go-sdk/wiki/CLI-Documentation
+    - https://docs.lacework.com/cli
 usage:
   version: 2.1
   orbs:
