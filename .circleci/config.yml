@@ -41,6 +41,34 @@ jobs:
               exit 1
             fi
 
+  integration-test-install-cli-unprivileged:
+    docker:
+      - image: python:3.10-slim
+    resource_class: small
+    steps:
+      - checkout
+      - lacework/install-cli
+      - run:
+          command: |
+            if ! lacework version; then
+              echo "The lacework-cli was not found"
+              exit 1
+            fi
+
+  integration-test-install-inline-scanner-unprivileged:
+    docker:
+      - image: python:3.10-slim
+    steps:
+      - checkout
+      - lacework/install-inline-scanner
+      - run:
+          name: Verify install
+          command: |
+            if ! lw-scanner version; then
+              echo "The lacework inline scanner was not found"
+              exit 1
+            fi
+
   integration-test-execute-inline-evaluation:
     working_directory: ~/project
     machine: true

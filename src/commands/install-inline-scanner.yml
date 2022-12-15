@@ -4,4 +4,12 @@ steps:
   - run:
       name: Installing the lw-scanner binary
       command: |
-        curl https://raw.githubusercontent.com/lacework/circleci-orb-lacework/master/scripts/install.sh | sudo bash
+        local url=https://raw.githubusercontent.com/lacework/circleci-orb-lacework/master/scripts/install.sh
+
+        # Check if the command sudo is available, some unprivileged container images don't have it
+        if command -v sudo &> /dev/null
+        then
+            curl ${url} | sudo bash
+        else
+            curl ${url} | bash
+        fi
