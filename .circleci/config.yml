@@ -166,7 +166,7 @@ jobs:
       - lacework/ctr-vuln-scan:
           registry: "index.docker.io"
           repository: "lacework/lacework-cli"
-          tag: "amazonlinux-2"
+          tag: "latest"
           fail_on_severity: "critical"
 
   integration-test-scan-pkg-manifest:
