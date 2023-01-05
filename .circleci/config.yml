@@ -83,6 +83,7 @@ jobs:
           html: true
           tags: "orb_test=true"
           save: true
+          policy: true
           data-directory: ~/project/vuln_report
       - run:
           command: |
