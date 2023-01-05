@@ -42,8 +42,7 @@ jobs:
             fi
 
   integration-test-install-cli-unprivileged:
-    docker:
-      - image: python:3.10-slim
+    executor: orb-tools/ubuntu
     resource_class: small
     steps:
       - checkout
@@ -56,8 +55,7 @@ jobs:
             fi
 
   integration-test-install-inline-scanner-unprivileged:
-    docker:
-      - image: python:3.10-slim
+    executor: orb-tools/ubuntu
     steps:
       - checkout
       - lacework/install-inline-scanner
