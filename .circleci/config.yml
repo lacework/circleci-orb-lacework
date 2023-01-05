@@ -83,6 +83,7 @@ jobs:
           html: true
           tags: "orb_test=true"
           save: true
+          policy: true
           data-directory: ~/project/vuln_report
       - run:
           command: |
@@ -173,12 +174,12 @@ jobs:
       - checkout
       - lacework/scan-pkg-manifest:
           manifest: '{
-            "os_pkg_info_list": [
+            "osPkgInfoList": [
                 {
                     "os":"Ubuntu",
-                    "os_ver":"18.04",
+                    "osVer":"18.04",
                     "pkg": "openssl",
-                    "pkg_ver": "1.1.1-1ubuntu2.1~18.04.5"
+                    "pkgVer": "1.1.1-1ubuntu2.1~18.04.5"
                 }
               ]
             }'
@@ -249,12 +250,12 @@ workflows:
       # Test scan-pkg-manifest
       - lacework/scan-pkg-manifest:
           manifest: '{
-            "os_pkg_info_list": [
+            "osPkgInfoList": [
                 {
                     "os":"Ubuntu",
-                    "os_ver":"18.04",
+                    "osVer":"18.04",
                     "pkg": "openssl",
-                    "pkg_ver": "1.1.1-1ubuntu2.1~18.04.5"
+                    "pkgVer": "1.1.1-1ubuntu2.1~18.04.5"
                 }
               ]
             }'
