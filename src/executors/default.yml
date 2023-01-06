@@ -2,11 +2,11 @@ description: >
   Docker container that has the latest lacework-cli baked-in
 parameters:
   tag:
-    default: latest
+    default: alpine
     description: >
       Pick a specific lacework/lacework-cli image variant:
       https://hub.docker.com/r/lacework/lacework-cli/tags
     type: string
 docker:
-  - image: 'lacework/lacework-cli:<<parameters.tag>>'
+  - image: 'techallylw/lacework-cli:<<parameters.tag>>'
 resource_class: small
