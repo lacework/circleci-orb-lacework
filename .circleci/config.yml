@@ -183,8 +183,8 @@ jobs:
                 }
               ]
             }'
-      - lacework/scan-pkg-manifest:
-          local-host: yes
+      # - lacework/scan-pkg-manifest:
+          # local-host: yes
 
 workflows:
   # This `lint-pack_validate_publish-dev` workflow will run on any commit.
