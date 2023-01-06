@@ -203,7 +203,7 @@ workflows:
       # requires a CircleCI API token to be stored as CIRCLE_TOKEN (default)
       # https://circleci.com/docs/2.0/managing-api-tokens
       # store CIRCLE_TOKEN as a project env var or Contexts resource
-      # if using Contexts, add your context below.
+      # if using Contexts, add your context below
       - orb-tools/publish-dev:
           orb-name: lacework/lacework
           requires:
