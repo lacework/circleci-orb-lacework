@@ -4,4 +4,12 @@ steps:
   - run:
       name: Installing the lacework-cli
       command: |
-        curl https://raw.githubusercontent.com/lacework/go-sdk/main/cli/install.sh | sudo bash
+        url=https://raw.githubusercontent.com/lacework/go-sdk/main/cli/install.sh
+
+        # Check if the command sudo is available, some unprivileged container images don't have it
+        if command -v sudo &> /dev/null
+        then
+            curl ${url} | sudo bash
+        else
+            curl ${url} | bash
+        fi

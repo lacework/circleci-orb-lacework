@@ -49,24 +49,28 @@ parameters:
     description: Evaluate policies configured in the Lacework platform
     default: false
     type: boolean
+  fail_on_violation_exit_code:
+    description: Exit code for a policy violation when action on failure is set to block. The default value of -1 causes no action to occur. Use an integer of 0 or above to publish this exit code when a policy failure occurs.
+    type: integer
+    default: -1
   critical_violation_exit_code:
-    description: Exit code for critical policy violation (default -1)
+    description: Exit code for critical policy violation. The default value of -1 causes no action to occur. Use an integer of 0 or above to publish this exit code when a policy failure occurs.
     type: integer
     default: -1
   high_violation_exit_code:
-    description: Exit code for high policy violation (default -1)
+    description: Exit code for high policy violation. The default value of -1 causes no action to occur. Use an integer of 0 or above to publish this exit code when a policy failure occurs.
     type: integer
     default: -1
   medium_violation_exit_code:
-    description: Exit code for medium policy violation (default -1)
+    description: Exit code for medium policy violation. The default value of -1 causes no action to occur. Use an integer of 0 or above to publish this exit code when a policy failure occurs.
     type: integer
     default: -1
   low_violation_exit_code:
-    description: Exit code for low policy violation (default -1)
+    description: Exit code for low policy violation. The default value of -1 causes no action to occur. Use an integer of 0 or above to publish this exit code when a policy failure occurs.
     type: integer
     default: -1
   info_violation_exit_code:
-    description: Exit code for info policy violation (default -1)
+    description: Exit code for info policy violation. The default value of -1 causes no action to occur. Use an integer of 0 or above to publish this exit code when a policy failure occurs.
     type: integer
     default: -1
 
@@ -96,6 +100,7 @@ steps:
         <<# parameters.build_plan >> --build-plan << parameters.build_plan >> <</ parameters.build_plan >> \
         <<# parameters.html >> --html <</ parameters.html >> \
         <<# parameters.policy >> --policy <</ parameters.policy >> \
+        <<# parameters.fail_on_violation_exit_code >> --fail-on-violation-exit-code << parameters.fail_on_violation_exit_code >> <</ parameters.fail_on_violation_exit_code >> \
         <<# parameters.critical_violation_exit_code >> --critical-violation-exit-code << parameters.critical_violation_exit_code >> <</ parameters.critical_violation_exit_code >> \
         <<# parameters.high_violation_exit_code >> --high-violation-exit-code << parameters.high_violation_exit_code >> <</ parameters.high_violation_exit_code >> \
         <<# parameters.medium_violation_exit_code >> --medium-violation-exit-code << parameters.medium_violation_exit_code >> <</ parameters.medium_violation_exit_code >> \

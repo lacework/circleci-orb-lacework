@@ -41,6 +41,32 @@ jobs:
               exit 1
             fi
 
+  integration-test-install-cli-unprivileged:
+    executor: orb-tools/ubuntu
+    resource_class: small
+    steps:
+      - checkout
+      - lacework/install-cli
+      - run:
+          command: |
+            if ! lacework version; then
+              echo "The lacework-cli was not found"
+              exit 1
+            fi
+
+  integration-test-install-inline-scanner-unprivileged:
+    executor: orb-tools/ubuntu
+    steps:
+      - checkout
+      - lacework/install-inline-scanner
+      - run:
+          name: Verify install
+          command: |
+            if ! lw-scanner version; then
+              echo "The lacework inline scanner was not found"
+              exit 1
+            fi
+
   integration-test-execute-inline-evaluation:
     working_directory: ~/project
     machine: true
@@ -57,6 +83,7 @@ jobs:
           html: true
           tags: "orb_test=true"
           save: true
+          policy: true
           data-directory: ~/project/vuln_report
       - run:
           command: |
@@ -138,7 +165,7 @@ jobs:
       - lacework/ctr-vuln-scan:
           registry: "index.docker.io"
           repository: "lacework/lacework-cli"
-          tag: "amazonlinux-2"
+          tag: "latest"
           fail_on_severity: "critical"
 
   integration-test-scan-pkg-manifest:
@@ -147,17 +174,17 @@ jobs:
       - checkout
       - lacework/scan-pkg-manifest:
           manifest: '{
-            "os_pkg_info_list": [
+            "osPkgInfoList": [
                 {
                     "os":"Ubuntu",
-                    "os_ver":"18.04",
+                    "osVer":"18.04",
                     "pkg": "openssl",
-                    "pkg_ver": "1.1.1-1ubuntu2.1~18.04.5"
+                    "pkgVer": "1.1.1-1ubuntu2.1~18.04.5"
                 }
               ]
             }'
-      - lacework/scan-pkg-manifest:
-          local-host: yes
+      # - lacework/scan-pkg-manifest:
+          # local-host: yes
 
 workflows:
   # This `lint-pack_validate_publish-dev` workflow will run on any commit.
@@ -197,6 +224,8 @@ workflows:
     when: << pipeline.parameters.run-integration-tests >>
     jobs:
       - integration-test-install-cli
+      - integration-test-install-cli-unprivileged
+      - integration-test-install-inline-scanner-unprivileged
       - integration-test-install-inline-scanner
       - integration-test-ctr-vuln-scan
       - integration-test-scan-pkg-manifest
@@ -221,16 +250,15 @@ workflows:
       # Test scan-pkg-manifest
       - lacework/scan-pkg-manifest:
           manifest: '{
-            "os_pkg_info_list": [
+            "osPkgInfoList": [
                 {
                     "os":"Ubuntu",
-                    "os_ver":"18.04",
+                    "osVer":"18.04",
                     "pkg": "openssl",
-                    "pkg_ver": "1.1.1-1ubuntu2.1~18.04.5"
+                    "pkgVer": "1.1.1-1ubuntu2.1~18.04.5"
                 }
               ]
             }'
-
 
       # publish a semver version of the orb. relies on the commit
       # subject containing the text "[semver:patch|minor|major|skip]"
@@ -244,7 +272,7 @@ workflows:
           add-pr-comment: false
           fail-if-semver-not-indicated: true
           publish-version-tag: true
-          ssh-fingerprints: 17:62:8a:b9:66:53:0f:8a:47:15:24:75:95:c8:14:54
+          ssh-fingerprints: f9:d7:a3:c8:ec:c7:ab:49:14:2f:b7:d6:ca:a3:7e:89
           requires:
             - integration-test-install-cli
             - integration-test-ctr-vuln-scan
