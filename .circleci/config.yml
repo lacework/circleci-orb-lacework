@@ -273,7 +273,7 @@ workflows:
           add-pr-comment: false
           fail-if-semver-not-indicated: true
           publish-version-tag: true
-          ssh-fingerprints: 17:62:8a:b9:66:53:0f:8a:47:15:24:75:95:c8:14:54
+          ssh-fingerprints: f9:d7:a3:c8:ec:c7:ab:49:14:2f:b7:d6:ca:a3:7e:89
           requires:
             - integration-test-install-cli
             - integration-test-ctr-vuln-scan
